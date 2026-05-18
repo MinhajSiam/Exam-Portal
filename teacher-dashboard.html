@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শিক্ষক ড্যাশবোর্ড - নম্বর এন্ট্রি</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 10px;
+        }
+
+        /* টিচার প্যানেলে সবুজ স্ক্রলবার */
+
+        /* নম্বর ইনপুট ফিল্ড থেকে তীরের আইকন (Arrows) লুকানোর জন্য */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body class="h-screen flex font-sans relative">
+
+    <div
+        class="absolute top-0 left-0 w-[400px] h-[400px] bg-teal-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none">
+    </div>
+    <div
+        class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-emerald-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 pointer-events-none">
+    </div>
+
+    <aside id="sidebar" class="glass-panel w-64 h-full border-r border-white/10 flex flex-col hidden md:flex z-30">
+        <div class="h-16 flex items-center justify-center border-b border-white/10 px-4">
+            <i class="fa-solid fa-graduation-cap text-emerald-500 text-2xl mr-3"></i>
+            <h1 class="text-xl font-bold tracking-wider">এডু<span class="text-emerald-500">পোর্টাল</span></h1>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-2">
+            <a href="teacher-dashboard.html"
+                class="flex items-center px-4 py-3 bg-emerald-600/20 text-emerald-400 border-l-4 border-emerald-500 rounded-r-lg transition-colors">
+                <i class="fa-solid fa-pen-to-square w-6"></i><span class="font-medium">নম্বর এন্ট্রি</span>
+            </a>
+            <a href="#"
+                class="flex items-center px-4 py-3 text-gray-400 hover:bg-white/5 hover:text-white rounded-lg transition-colors">
+                <i class="fa-solid fa-book w-6"></i><span class="font-medium">আমার বিষয়সমূহ</span>
+            </a>
+            <a href="#"
+                class="flex items-center px-4 py-3 text-gray-400 hover:bg-white/5 hover:text-white rounded-lg transition-colors">
+                <i class="fa-solid fa-clock-rotate-left w-6"></i><span class="font-medium">পূর্বের রেকর্ড</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/10">
+            <button
+                class="w-full flex items-center justify-center px-4 py-2 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white rounded-lg transition-all border border-red-500/20">
+                <i class="fa-solid fa-right-from-bracket mr-2"></i> লগআউট
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full relative z-10 w-full">
+        <header class="h-16 glass-panel border-b border-white/10 flex items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <h2 class="text-lg font-medium text-gray-300">শিক্ষক প্যানেল</h2>
+                <span
+                    class="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-xs rounded-full border border-emerald-500/20">নম্বর
+                    এন্ট্রি মোড</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-bold text-white">আব্দুর রহিম</p>
+                    <p class="text-xs text-gray-400">সিনিয়র শিক্ষক</p>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Abdur+Rahim&background=10b981&color=fff"
+                    class="w-10 h-10 rounded-full border-2 border-emerald-500/50">
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-6">
+
+            <div class="glass-panel border border-white/10 rounded-xl p-5 mb-6">
+                <h3 class="text-md font-bold mb-4 text-emerald-400 flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-list"></i> পরীক্ষার নম্বর যুক্ত করুন
+                </h3>
+
+                <form class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">পরীক্ষা নির্বাচন করুন</label>
+                        <select
+                            class="w-full px-3 py-2 bg-slate-800 border border-white/10 rounded-lg focus:border-emerald-500 focus:outline-none text-sm text-white">
+                            <option>অর্ধ-বার্ষিক পরীক্ষা</option>
+                            <option>সিটি-০১ (CT-01)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">আপনার ক্লাস</label>
+                        <select
+                            class="w-full px-3 py-2 bg-slate-800 border border-white/10 rounded-lg focus:border-emerald-500 focus:outline-none text-sm text-white">
+                            <option>ষষ্ঠ শ্রেণি</option>
+                            <option>অষ্টম শ্রেণি</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">আপনার বিষয়</label>
+                        <select
+                            class="w-full px-3 py-2 bg-slate-800 border border-white/10 rounded-lg focus:border-emerald-500 focus:outline-none text-sm text-white">
+                            <option>গণিত (পূর্ণমান: ১০০)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button" onclick="loadStudents()"
+                            class="w-full bg-white/10 hover:bg-white/20 text-white py-2 rounded-lg text-sm font-medium transition-colors border border-white/10 flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-rotate"></i> তালিকা লোড করুন
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="marks-entry-section"
+                class="glass-panel border border-emerald-500/30 rounded-xl overflow-hidden relative transition-all">
+
+                <div
+                    class="bg-emerald-600/20 px-6 py-4 border-b border-emerald-500/30 flex justify-between items-center">
+                    <div>
+                        <h4 class="text-lg font-bold text-white">ষষ্ঠ শ্রেণি - গণিত</h4>
+                        <p class="text-xs text-emerald-400">অর্ধ-বার্ষিক পরীক্ষা (পূর্ণমান: ১০০)</p>
+                    </div>
+                    <span class="text-sm text-gray-300">মোট শিক্ষার্থী: ০৩ জন</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <form onsubmit="saveAllMarks(event)">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-white/5 text-gray-300 text-sm border-b border-white/10">
+                                    <th class="p-4 font-medium w-24 text-center">রোল</th>
+                                    <th class="p-4 font-medium">শিক্ষার্থীর নাম</th>
+                                    <th class="p-4 font-medium text-center w-32">পূর্ণমান</th>
+                                    <th class="p-4 font-medium text-center w-40">প্রাপ্ত নম্বর দিন</th>
+                                    <th class="p-4 font-medium text-center w-32">স্ট্যাটাস</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-white/5">
+
+                                <tr class="hover:bg-white/5 transition-colors group">
+                                    <td class="p-4 text-center font-bold text-emerald-400">১০১</td>
+                                    <td class="p-4 font-medium text-white">মেহেদী হাসান</td>
+                                    <td class="p-4 text-center text-gray-400">১০০</td>
+                                    <td class="p-4">
+                                        <input type="number" max="100" min="0" placeholder="00"
+                                            class="w-full text-center px-3 py-2 bg-black/40 border border-white/10 rounded-lg focus:border-emerald-500 focus:bg-white/10 focus:outline-none text-white font-bold transition-all"
+                                            required>
+                                    </td>
+                                    <td class="p-4 text-center text-gray-500 text-xs">
+                                        <i class="fa-solid fa-circle-notch"></i> এন্ট্রি বাকি
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-white/5 transition-colors group">
+                                    <td class="p-4 text-center font-bold text-emerald-400">১০২</td>
+                                    <td class="p-4 font-medium text-white">সাদিয়া ইসলাম</td>
+                                    <td class="p-4 text-center text-gray-400">১০০</td>
+                                    <td class="p-4">
+                                        <input type="number" max="100" min="0" placeholder="00"
+                                            class="w-full text-center px-3 py-2 bg-black/40 border border-white/10 rounded-lg focus:border-emerald-500 focus:bg-white/10 focus:outline-none text-white font-bold transition-all"
+                                            required>
+                                    </td>
+                                    <td class="p-4 text-center text-gray-500 text-xs">
+                                        <i class="fa-solid fa-circle-notch"></i> এন্ট্রি বাকি
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-white/5 transition-colors group">
+                                    <td class="p-4 text-center font-bold text-emerald-400">১০৩</td>
+                                    <td class="p-4 font-medium text-white">রফিকুল আলম</td>
+                                    <td class="p-4 text-center text-gray-400">১০০</td>
+                                    <td class="p-4">
+                                        <input type="number" max="100" min="0" placeholder="00"
+                                            class="w-full text-center px-3 py-2 bg-black/40 border border-white/10 rounded-lg focus:border-emerald-500 focus:bg-white/10 focus:outline-none text-white font-bold transition-all"
+                                            required>
+                                    </td>
+                                    <td class="p-4 text-center text-gray-500 text-xs">
+                                        <i class="fa-solid fa-circle-notch"></i> এন্ট্রি বাকি
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="p-5 bg-black/20 border-t border-white/10 flex justify-end items-center gap-4">
+                            <span class="text-sm text-gray-400"><i class="fa-solid fa-circle-info text-emerald-500"></i>
+                                নম্বর সাবমিট করার পর পরিবর্তন করতে চাইলে অ্যাডমিনের অনুমতি লাগবে।</span>
+                            <button type="submit"
+                                class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-colors shadow-lg shadow-emerald-500/30 flex items-center gap-2">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> সেভ করুন ও জমা দিন
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        function loadStudents() {
+            alert("ক্লাসের শিক্ষার্থীদের তালিকা লোড করা হয়েছে। এখন আপনি নম্বর এন্ট্রি করতে পারবেন।");
+        }
+
+        function saveAllMarks(event) {
+            event.preventDefault();
+            // এখানে ডাটাবেসে নম্বর সেভ করার লজিক থাকবে
+            alert("✅ ধন্যবাদ! সকল শিক্ষার্থীর নম্বর সফলভাবে ডাটাবেসে সংরক্ষণ করা হয়েছে।");
+
+            // ডেমো পারপাসে ইনপুটগুলো সবুজ করে দেওয়া হচ্ছে
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.classList.add('border-emerald-500', 'text-emerald-400');
+                input.disabled = true; // একবার সাবমিটের পর এডিট বন্ধ (লজিক অনুযায়ী)
+            });
+        }
+    </script>
+</body>
+
+</html>
