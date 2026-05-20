@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রেজাল্ট ও মার্কশিট - স্কুল পরীক্ষা পোর্টাল</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ডিফল্ট ডার্ক থিম */
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* প্রিন্ট করার সময়ের ডিজাইন (যাতে শুধু মার্কশিট প্রিন্ট হয়, বাকি সব লুকিয়ে যায়) */
+        @media print {
+            body {
+                background-color: white;
+                color: black;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .print-only {
+                box-shadow: none !important;
+                border: none !important;
+                color: black !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+
+            .print-border {
+                border-color: #000 !important;
+            }
+
+            .print-text-black {
+                color: #000 !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col relative font-sans">
+
+    <div
+        class="absolute top-0 right-0 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 no-print z-0">
+    </div>
+
+    <header class="h-16 glass-panel flex items-center justify-between px-6 z-10 no-print relative">
+        <div class="flex items-center">
+            <i class="fa-solid fa-graduation-cap text-blue-500 text-2xl mr-3"></i>
+            <h1 class="text-xl font-bold tracking-wider">এডু<span class="text-blue-500">পোর্টাল</span></h1>
+        </div>
+        <a href="index.html"
+            class="text-sm text-blue-400 hover:text-white transition-colors border border-blue-500/30 px-4 py-1.5 rounded-full">
+            লগইন পেজে ফিরে যান
+        </a>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center p-4 md:p-8 relative z-10 w-full max-w-4xl mx-auto">
+
+        <div id="search-section"
+            class="glass-panel w-full p-6 md:p-8 rounded-2xl shadow-2xl mb-8 no-print transition-all duration-500">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-white mb-2">ফলাফল অনুসন্ধান</h2>
+                <p class="text-sm text-gray-400">আপনার মার্কশিট দেখতে রোল এবং পিন নম্বর প্রদান করুন</p>
+            </div>
+
+            <form onsubmit="showMarksheet(event)" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label class="block text-sm text-gray-300 mb-1">পরীক্ষার নাম</label>
+                    <select
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-blue-500 focus:outline-none text-white">
+                        <option class="text-black">অর্ধ-বার্ষিক পরীক্ষা</option>
+                        <option class="text-black">বার্ষিক পরীক্ষা</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-300 mb-1">শ্রেণি</label>
+                    <select
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-blue-500 focus:outline-none text-white">
+                        <option class="text-black">ষষ্ঠ শ্রেণি</option>
+                        <option class="text-black">সপ্তম শ্রেণি</option>
+                        <option class="text-black">অষ্টম শ্রেণি</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-300 mb-1">রোল নম্বর</label>
+                    <input type="number" id="roll-input"
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-blue-500 focus:outline-none text-white"
+                        placeholder="আপনার রোল দিন" required>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-300 mb-1 flex justify-between">
+                        <span>গোপন পিন (PIN) <i class="fa-solid fa-lock text-xs text-blue-400 ml-1"></i></span>
+                    </label>
+                    <input type="password" id="pin-input"
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-blue-500 focus:outline-none text-white tracking-widest"
+                        placeholder="••••••••" required>
+                </div>
+
+                <div class="md:col-span-2 mt-2">
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition-colors shadow-lg shadow-blue-500/30 flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass"></i> মার্কশিট দেখুন
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="marksheet-section"
+            class="w-full bg-white text-black p-8 md:p-12 rounded-xl shadow-2xl print-only hidden transition-all duration-500 origin-top">
+
+            <div class="flex justify-end mb-4 no-print border-b pb-4">
+                <button onclick="window.print()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md font-medium flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-print"></i> প্রিন্ট বা PDF ডাউনলোড
+                </button>
+            </div>
+
+            <div class="text-center border-b-2 print-border border-gray-800 pb-6 mb-6">
+                <i class="fa-solid fa-building-columns text-4xl text-gray-800 mb-3 print-text-black"></i>
+                <h1 class="text-3xl font-extrabold uppercase tracking-wide text-gray-900 print-text-black">আদর্শ উচ্চ
+                    বিদ্যালয়</h1>
+                <p class="text-sm text-gray-600 font-medium print-text-black">ধানমন্ডি, ঢাকা-১২০৫ | স্থাপিত: ১৯৯০</p>
+                <div
+                    class="mt-4 inline-block bg-gray-200 px-6 py-1.5 rounded-full font-bold text-gray-800 print-border border border-gray-400">
+                    একাডেমিক ট্রান্সক্রিপ্ট / মার্কশিট
+                </div>
+            </div>
+
+            <div class="flex justify-between items-end mb-6">
+                <div class="space-y-2">
+                    <p class="print-text-black"><span class="font-bold">শিক্ষার্থীর নাম:</span> মেহেদী হাসান</p>
+                    <p class="print-text-black"><span class="font-bold">পরীক্ষা:</span> অর্ধ-বার্ষিক পরীক্ষা - ২০২৬</p>
+                </div>
+                <div class="space-y-2 text-right">
+                    <p class="print-text-black"><span class="font-bold">শ্রেণি:</span> ষষ্ঠ শ্রেণি</p>
+                    <p class="print-text-black"><span class="font-bold">রোল নম্বর:</span> ১০১</p>
+                </div>
+            </div>
+
+            <table class="w-full border-collapse border-2 print-border border-gray-800 mb-8 text-sm md:text-base">
+                <thead>
+                    <tr class="bg-gray-100 print-text-black text-gray-900">
+                        <th class="border print-border border-gray-800 px-4 py-3 text-left">বিষয়</th>
+                        <th class="border print-border border-gray-800 px-4 py-3 text-center">পূর্ণমান</th>
+                        <th class="border print-border border-gray-800 px-4 py-3 text-center">প্রাপ্ত নম্বর</th>
+                        <th class="border print-border border-gray-800 px-4 py-3 text-center">লেটার গ্রেড</th>
+                        <th class="border print-border border-gray-800 px-4 py-3 text-center">গ্রেড পয়েন্ট</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border print-border border-gray-800 px-4 py-2 font-medium">বাংলা</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">১০০</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">৮৫</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center font-bold">A+</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">5.00</td>
+                    </tr>
+                    <tr>
+                        <td class="border print-border border-gray-800 px-4 py-2 font-medium">ইংরেজি</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">১০০</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">৭৮</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center font-bold">A</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">4.00</td>
+                    </tr>
+                    <tr>
+                        <td class="border print-border border-gray-800 px-4 py-2 font-medium">গণিত</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">১০০</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">৯২</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center font-bold">A+</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">5.00</td>
+                    </tr>
+                    <tr>
+                        <td class="border print-border border-gray-800 px-4 py-2 font-medium">সাধারণ বিজ্ঞান</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">১০০</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">৮০</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center font-bold">A+</td>
+                        <td class="border print-border border-gray-800 px-4 py-2 text-center">5.00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="bg-gray-100 print-text-black text-gray-900 font-bold">
+                        <td class="border print-border border-gray-800 px-4 py-3 text-right" colspan="2">সর্বমোট:</td>
+                        <td class="border print-border border-gray-800 px-4 py-3 text-center text-lg">৩৩৫</td>
+                        <td class="border print-border border-gray-800 px-4 py-3 text-right">জিপিএ (GPA):</td>
+                        <td class="border print-border border-gray-800 px-4 py-3 text-center text-xl">4.75</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="mt-6 mb-16">
+                <p class="font-bold text-lg print-text-black">ফলাফল: <span
+                        class="text-green-600 print-text-black uppercase">উত্তীর্ণ (Passed)</span></p>
+            </div>
+
+            <div class="flex justify-between items-end pt-12">
+                <div class="text-center">
+                    <div class="w-40 border-b print-border border-gray-800 mb-2"></div>
+                    <p class="font-medium print-text-black">শ্রেণি শিক্ষকের স্বাক্ষর</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-40 border-b print-border border-gray-800 mb-2"></div>
+                    <p class="font-medium print-text-black">প্রধান শিক্ষকের স্বাক্ষর</p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        function showMarksheet(event) {
+            event.preventDefault();
+
+            const roll = document.getElementById('roll-input').value;
+            const pin = document.getElementById('pin-input').value;
+
+            // ডাটাবেস চেক করার ডামি লজিক
+            if (roll && pin) {
+                // সার্চ ফর্ম লুকিয়ে ফেলবে
+                document.getElementById('search-section').style.display = 'none';
+
+                // মার্কশিট দেখাবে
+                const marksheet = document.getElementById('marksheet-section');
+                marksheet.classList.remove('hidden');
+
+                // একটু নিচ থেকে অ্যানিমেশন হয়ে আসবে
+                marksheet.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => {
+                    marksheet.classList.remove('translate-y-4', 'opacity-0');
+                }, 50);
+
+                alert("রেজাল্ট পাওয়া গেছে! আপনার পিন সঠিক।");
+            }
+        }
+    </script>
+</body>
+
+</html>
