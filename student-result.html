@@ -22,7 +22,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* প্রিন্ট করার সময়ের ডিজাইন (যাতে শুধু মার্কশিট প্রিন্ট হয়, বাকি সব লুকিয়ে যায়) */
+        /* প্রিন্ট লেআউট */
         @media print {
             body {
                 background-color: white !important;
@@ -47,12 +47,16 @@
                 border: 1px solid black !important;
                 border-collapse: collapse !important;
                 color: black !important;
+                width: 100% !important;
             }
 
             .marksheet-table th,
             .marksheet-table td {
                 border: 1px solid black !important;
                 color: black !important;
+                padding: 3px !important;
+                /* প্রিন্টে জায়গা বাঁচানোর জন্য কম প্যাডিং */
+                font-size: 8px !important;
             }
 
             .print-text-black {
@@ -72,9 +76,8 @@
 
         .marksheet-table th,
         .marksheet-table td {
-            border: 1px solid #c0c0c0;
-            /* হালকা গ্রে বর্ডার */
-            padding: 8px;
+            border: 1px solid #b0b0b0;
+            padding: 6px;
             text-align: center;
         }
     </style>
@@ -100,7 +103,7 @@
         </a>
     </header>
 
-    <main class="flex-1 flex flex-col items-center p-4 md:p-8 relative z-10 w-full max-w-7xl mx-auto">
+    <main class="flex-1 flex flex-col items-center p-4 md:p-8 relative z-10 w-full max-w-[98%] mx-auto">
 
         <div id="search-section"
             class="glass-panel w-full p-6 md:p-8 rounded-2xl shadow-2xl mb-8 no-print transition-all duration-500 max-w-4xl mx-auto">
@@ -135,9 +138,7 @@
                         placeholder="আপনার রোল দিন" required>
                 </div>
                 <div>
-                    <label class="block text-sm text-gray-300 mb-1 flex justify-between">
-                        <span>গোপন পিন (PIN) <i class="fa-solid fa-lock text-xs text-blue-400 ml-1"></i></span>
-                    </label>
+                    <label class="block text-sm text-gray-300 mb-1">গোপন পিন (PIN)</label>
                     <input type="password" id="pin-input"
                         class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-blue-500 focus:outline-none text-white tracking-widest"
                         placeholder="••••••••" required>
@@ -153,7 +154,7 @@
         </div>
 
         <div id="marksheet-section"
-            class="w-full bg-white text-black p-4 md:p-8 rounded-xl shadow-2xl print-only hidden transition-all duration-500 origin-top overflow-x-auto print:overflow-visible">
+            class="w-full bg-white text-black p-4 md:p-6 rounded-xl shadow-2xl print-only hidden transition-all duration-500 origin-top overflow-x-auto print:overflow-visible">
 
             <div class="flex justify-end mb-4 no-print border-b pb-4">
                 <button onclick="window.print()"
@@ -162,204 +163,256 @@
                 </button>
             </div>
 
-            <div class="text-center border-b print-border-black border-gray-400 pb-4 mb-4">
+            <div class="text-center border-b print-border-black border-gray-400 pb-3 mb-4">
                 <h1 class="text-2xl font-bold text-gray-900 print-text-black">সালাহউদ্দিন আহমেদ স্কুল অ্যান্ড কলেজ</h1>
                 <p class="text-xs text-gray-600 print-text-black">সবুজবাগ, কদমতলী, ঢাকা-১২০৪</p>
                 <p class="text-xs text-gray-600 print-text-black">মার্কশিট</p>
-                <p class="text-sm font-bold text-gray-800 print-text-black mt-1">শিক্ষাবর্ষ ২০২৬</p>
+                <p class="text-xs font-bold text-gray-800 print-text-black mt-1">শিক্ষাবর্ষ ২০২৬</p>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-between mb-4 gap-4">
-                <div class="w-full sm:w-1/2">
-                    <table class="marksheet-table text-left text-xs sm:text-sm">
+            <div class="flex flex-col sm:flex-row justify-between mb-4 gap-4 text-xs">
+                <div class="w-full sm:w-5/12">
+                    <table class="marksheet-table text-left">
                         <tr>
-                            <td class="font-bold print-text-black w-32 border-gray-400">শিক্ষার্থীর নাম:</td>
-                            <td class="print-text-black border-gray-400">মেহেদী হাসান</td>
-                            <td class="font-bold print-text-black w-24 border-gray-400">শাখা:</td>
-                            <td class="print-text-black border-gray-400">ক</td>
+                            <td class="font-bold print-text-black w-24 border-gray-400 bg-gray-50">শিক্ষার্থীর নাম:</td>
+                            <td class="print-text-black border-gray-400 font-medium">মেহেদী হাসান</td>
                         </tr>
                         <tr>
-                            <td class="font-bold print-text-black border-gray-400">শ্রেণি:</td>
+                            <td class="font-bold print-text-black border-gray-400 bg-gray-50">শ্রেণি:</td>
                             <td class="print-text-black border-gray-400">সপ্তম শ্রেণি</td>
-                            <td class="font-bold print-text-black border-gray-400">রোল:</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold print-text-black border-gray-400 bg-gray-50">রোল নম্বর:</td>
                             <td class="print-text-black border-gray-400">১০১</td>
                         </tr>
                         <tr>
-                            <td class="font-bold print-text-black border-gray-400">জন্ম তারিখ:</td>
-                            <td class="print-text-black border-gray-400" colspan="3">১৫-০৮-২০১১</td>
+                            <td class="font-bold print-text-black border-gray-400 bg-gray-50">শাখা:</td>
+                            <td class="print-text-black border-gray-400">ক</td>
                         </tr>
                     </table>
                 </div>
 
-                <div class="w-full sm:w-1/2 sm:flex sm:justify-end">
-                    <table class="marksheet-table text-center text-[10px] sm:text-xs w-full sm:w-auto">
-                        <tr class="bg-gray-100 print:bg-white print-text-black text-gray-900">
-                            <th class="font-bold border-gray-400 px-2 py-1">লেটার গ্রেড</th>
-                            <th class="font-bold border-gray-400 px-2 py-1">গ্রেড পয়েন্ট</th>
-                            <th class="font-bold border-gray-400 px-2 py-1">প্রাপ্ত নম্বর</th>
+                <div class="w-full sm:w-7/12 sm:flex sm:justify-end">
+                    <table class="marksheet-table text-center text-[10px] sm:w-auto">
+                        <tr class="bg-gray-100 print:bg-white print-text-black text-gray-900 font-bold">
+                            <th class="border-gray-400 px-2 py-0.5">লেটার গ্রেড</th>
+                            <th class="border-gray-400 px-2 py-0.5">গ্রেড পয়েন্ট</th>
+                            <th class="border-gray-400 px-2 py-0.5">প্রাপ্ত নম্বর</th>
+                            <th class="border-gray-400 px-2 py-0.5">লেটার গ্রেড</th>
+                            <th class="border-gray-400 px-2 py-0.5">গ্রেড পয়েন্ট</th>
+                            <th class="border-gray-400 px-2 py-0.5">প্রাপ্ত নম্বর</th>
                         </tr>
                         <tr>
-                            <td class="print-text-black border-gray-400">A+</td>
+                            <td class="print-text-black border-gray-400 font-bold">A+</td>
                             <td class="print-text-black border-gray-400">৫.০০</td>
                             <td class="print-text-black border-gray-400">৮০-১০০</td>
-                        </tr>
-                        <tr>
-                            <td class="print-text-black border-gray-400">A</td>
-                            <td class="print-text-black border-gray-400">৪.০০</td>
-                            <td class="print-text-black border-gray-400">৭০-৭৯</td>
-                        </tr>
-                        <tr>
-                            <td class="print-text-black border-gray-400">A-</td>
-                            <td class="print-text-black border-gray-400">৩.৫০</td>
-                            <td class="print-text-black border-gray-400">৬০-৬৯</td>
-                        </tr>
-                        <tr>
-                            <td class="print-text-black border-gray-400">B</td>
-                            <td class="print-text-black border-gray-400">৩.০০</td>
-                            <td class="print-text-black border-gray-400">৫০-৫৯</td>
-                        </tr>
-                        <tr>
-                            <td class="print-text-black border-gray-400">C</td>
+                            <td class="print-text-black border-gray-400 font-bold">C</td>
                             <td class="print-text-black border-gray-400">২.০০</td>
                             <td class="print-text-black border-gray-400">৪০-৪৯</td>
                         </tr>
                         <tr>
-                            <td class="print-text-black border-gray-400">D</td>
+                            <td class="print-text-black border-gray-400 font-bold">A</td>
+                            <td class="print-text-black border-gray-400">৪.০০</td>
+                            <td class="print-text-black border-gray-400">৭০-৭৯</td>
+                            <td class="print-text-black border-gray-400 font-bold">D</td>
                             <td class="print-text-black border-gray-400">১.০০</td>
                             <td class="print-text-black border-gray-400">৩৩-৩৯</td>
                         </tr>
                         <tr>
-                            <td class="print-text-black border-gray-400">F</td>
+                            <td class="print-text-black border-gray-400 font-bold">A-</td>
+                            <td class="print-text-black border-gray-400">৩.৫০</td>
+                            <td class="print-text-black border-gray-400">৬০-৬৯</td>
+                            <td class="print-text-black border-gray-400 font-bold">F</td>
                             <td class="print-text-black border-gray-400">০.০০</td>
                             <td class="print-text-black border-gray-400">০০-৩২</td>
+                        </tr>
+                        <tr>
+                            <td class="print-text-black border-gray-400 font-bold">B</td>
+                            <td class="print-text-black border-gray-400">৩.০০</td>
+                            <td class="print-text-black border-gray-400">৫০-৫৯</td>
+                            <td class="border-gray-400" colspan="3"></td>
                         </tr>
                     </table>
                 </div>
             </div>
 
-            <table
-                class="marksheet-table text-[9px] sm:text-[11px] border-collapse min-w-[1000px] print:min-w-0 print:w-full">
-                <thead>
-                    <tr class="bg-gray-100 print:bg-white print-text-black text-gray-900">
-                        <th rowspan="2" class="font-bold border-gray-400">বিষয়সমূহ</th>
-                        <th colspan="4" class="font-bold border-gray-400">সিটি ০১</th>
-                        <th colspan="4" class="font-bold border-gray-400">সিটি ০২</th>
-                        <th colspan="4" class="font-bold border-gray-400">অর্ধ-বার্ষিক</th>
-                        <th colspan="4" class="font-bold border-gray-400">বার্ষিক</th>
-                    </tr>
-                    <tr class="bg-gray-50 print:bg-white print-text-black text-gray-800">
-                        <th class="font-bold border-gray-400">পূর্ণমান</th>
-                        <th class="font-bold border-gray-400">প্রাপ্ত</th>
-                        <th class="font-bold border-gray-400">LG</th>
-                        <th class="font-bold border-gray-400">GPA</th>
-                        <th class="font-bold border-gray-400">পূর্ণমান</th>
-                        <th class="font-bold border-gray-400">প্রাপ্ত</th>
-                        <th class="font-bold border-gray-400">LG</th>
-                        <th class="font-bold border-gray-400">GPA</th>
-                        <th class="font-bold border-gray-400">পূর্ণমান</th>
-                        <th class="font-bold border-gray-400">প্রাপ্ত</th>
-                        <th class="font-bold border-gray-400">LG</th>
-                        <th class="font-bold border-gray-400">GPA</th>
-                        <th class="font-bold border-gray-400">পূর্ণমান</th>
-                        <th class="font-bold border-gray-400">প্রাপ্ত</th>
-                        <th class="font-bold border-gray-400">LG</th>
-                        <th class="font-bold border-gray-400">GPA</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center print-text-black">
-                    <tr>
-                        <td class="font-bold border-gray-400 text-left">বাংলা</td>
-                        <td class="border-gray-400">২০</td>
-                        <td class="border-gray-400 font-bold">১৮</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">৫.০০</td>
-                        <td class="border-gray-400">২০</td>
-                        <td class="border-gray-400 font-bold">১৬</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">A</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">৪.০০</td>
-                        <td class="border-gray-400">১০০</td>
-                        <td class="border-gray-400 font-bold">৮৫</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">৫.০০</td>
-                        <td class="border-gray-400">১০০</td>
-                        <td class="border-gray-400 font-bold">৮৫</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">৫.০০</td>
-                    </tr>
-                    <tr>
-                        <td class="font-bold border-gray-400 text-left">ইংরেজি</td>
-                        <td class="border-gray-400">২০</td>
-                        <td class="border-gray-400 font-bold">১৯</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">৫.০০</td>
-                        <td class="border-gray-400">২০</td>
-                        <td class="border-gray-400 font-bold">১৭</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">৫.০০</td>
-                        <td class="border-gray-400">১০০</td>
-                        <td class="border-gray-400 font-bold">৭৮</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">A</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">৪.০০</td>
-                        <td class="border-gray-400">১০০</td>
-                        <td class="border-gray-400 font-bold">৭৮</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">A</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">৪.০০</td>
-                    </tr>
-                    <tr>
-                        <td class="font-bold border-gray-400 text-left">গণিত</td>
-                        <td class="border-gray-400">২০</td>
-                        <td class="border-gray-400 font-bold">১৪</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">A-</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">৩.৫০</td>
-                        <td class="border-gray-400">২০</td>
-                        <td class="border-gray-400 font-bold">১৫</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">A</td>
-                        <td class="border-gray-400 font-bold text-blue-600 print-text-black">৪.০০</td>
-                        <td class="border-gray-400">১০০</td>
-                        <td class="border-gray-400 font-bold">৯২</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">৫.০০</td>
-                        <td class="border-gray-400">১০০</td>
-                        <td class="border-gray-400 font-bold">৯২</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
-                        <td class="border-gray-400 font-bold text-emerald-600 print-text-black">৫.০০</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr class="font-bold print-text-black text-gray-900">
-                        <td class="border-gray-400 text-right">সর্বমোট:</td>
-                        <td class="border-gray-400" colspan="4"> প্রাপ্ত: ৫৩ | GPA: ৪.৫০</td>
-                        <td class="border-gray-400" colspan="4"> প্রাপ্ত: ৪৮ | GPA: ৪.৩৩</td>
-                        <td class="border-gray-400" colspan="4"> প্রাপ্ত: ২৫৫ | GPA: ৪.৬৭</td>
-                        <td class="border-gray-400" colspan="4"> প্রাপ্ত: ২৫৫ | GPA: ৪.৬৭</td>
-                    </tr>
-                    <tr class="font-bold print-text-black text-gray-900 bg-gray-50 print:bg-white text-base">
-                        <td class="border-gray-400 text-right" colspan="13">সর্বমোট জিপিএ (Total GPA):</td>
-                        <td class="border-gray-400 font-extrabold text-blue-700 print-text-black" colspan="4">৪.৬৭</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="overflow-x-auto print:overflow-visible">
+                <table class="marksheet-table text-[9px] border-collapse min-w-[1400px] print:min-w-0 print:w-full">
+                    <thead>
+                        <tr class="bg-gray-100 print:bg-white print-text-black text-gray-900 font-bold">
+                            <th rowspan="2" class="border-gray-400 text-left px-2">বিষয়সমূহ</th>
+                            <th colspan="7" class="border-gray-400">সিটি ০১</th>
+                            <th colspan="7" class="border-gray-400">সিটি ০২</th>
+                            <th colspan="7" class="border-gray-400">অর্ধ-বার্ষিক</th>
+                            <th colspan="7" class="border-gray-400">বার্ষিক</th>
+                        </tr>
+                        <tr class="bg-gray-50 print:bg-white print-text-black text-gray-800 text-[8px]">
+                            <th class="border-gray-400 p-1">পূর্ণমান</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত MCQ</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত CQ</th>
+                            <th class="border-gray-400 p-1">ব্যাবহারিক</th>
+                            <th class="border-gray-400 p-1 bg-blue-50/30 print:bg-white">সর্বমোট প্রাপ্ত</th>
+                            <th class="border-gray-400 p-1">LG</th>
+                            <th class="border-gray-400 p-1">GPA</th>
+                            <th class="border-gray-400 p-1">পূর্ণমান</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত MCQ</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত CQ</th>
+                            <th class="border-gray-400 p-1">ব্যাবহারিক</th>
+                            <th class="border-gray-400 p-1 bg-blue-50/30 print:bg-white">সর্বমোট প্রাপ্ত</th>
+                            <th class="border-gray-400 p-1">LG</th>
+                            <th class="border-gray-400 p-1">GPA</th>
+                            <th class="border-gray-400 p-1">পূর্ণমান</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত MCQ</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত CQ</th>
+                            <th class="border-gray-400 p-1">ব্যাবহারিক</th>
+                            <th class="border-gray-400 p-1 bg-blue-50/30 print:bg-white">সর্বমোট প্রাপ্ত</th>
+                            <th class="border-gray-400 p-1">LG</th>
+                            <th class="border-gray-400 p-1">GPA</th>
+                            <th class="border-gray-400 p-1">পূর্ণমান</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত MCQ</th>
+                            <th class="border-gray-400 p-1">প্রাপ্ত CQ</th>
+                            <th class="border-gray-400 p-1">ব্যাবহারিক</th>
+                            <th class="border-gray-400 p-1 bg-blue-50/30 print:bg-white">সর্বমোট প্রাপ্ত</th>
+                            <th class="border-gray-400 p-1">LG</th>
+                            <th class="border-gray-400 p-1">GPA</th>
+                        </tr>
+                    </thead>
+                    <tbody class="print-text-black">
+                        <tr>
+                            <td class="font-bold border-gray-400 text-left px-2 bg-gray-50/50 print:bg-white">বাংলা
+                            </td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">০৫</td>
+                            <td class="border-gray-400">১০</td>
+                            <td class="border-gray-400">০৩</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">১৮</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">০৪</td>
+                            <td class="border-gray-400">১১</td>
+                            <td class="border-gray-400">০৩</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">১৮</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                            <td class="border-gray-400">৭৫</td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">৪৫</td>
+                            <td class="border-gray-400">২২</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">৮৭</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                            <td class="border-gray-400">৭৫</td>
+                            <td class="border-gray-400">২২</td>
+                            <td class="border-gray-400">৪৪</td>
+                            <td class="border-gray-400">২৩</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">৮৯</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold border-gray-400 text-left px-2 bg-gray-50/50 print:bg-white">বিজ্ঞান
+                            </td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">০৫</td>
+                            <td class="border-gray-400">১০</td>
+                            <td class="border-gray-400">০৩</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">১৮</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">০৪</td>
+                            <td class="border-gray-400">১১</td>
+                            <td class="border-gray-400">০৩</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">১৮</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                            <td class="border-gray-400">৭৫</td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">৪৫</td>
+                            <td class="border-gray-400">২২</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">৮৭</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                            <td class="border-gray-400">৭৫</td>
+                            <td class="border-gray-400">২২</td>
+                            <td class="border-gray-400">৪৪</td>
+                            <td class="border-gray-400">২৩</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">৮৯</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold border-gray-400 text-left px-2 bg-gray-50/50 print:bg-white">ইংরেজি
+                            </td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400">১৬</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">১৬</td>
+                            <td class="border-gray-400 font-bold text-blue-600 print-text-black">A</td>
+                            <td class="border-gray-400 font-bold">৪.০০</td>
+                            <td class="border-gray-400">২০</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400">১৭</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">১৭</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                            <td class="border-gray-400">১০০</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400">৭৮</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">৭৮</td>
+                            <td class="border-gray-400 font-bold text-blue-600 print-text-black">A</td>
+                            <td class="border-gray-400 font-bold">৪.০০</td>
+                            <td class="border-gray-400">১০০</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400">৮২</td>
+                            <td class="border-gray-400">০০</td>
+                            <td class="border-gray-400 font-bold bg-blue-50/20 print:bg-white">৮২</td>
+                            <td class="border-gray-400 font-bold text-emerald-600 print-text-black">A+</td>
+                            <td class="border-gray-400 font-bold">৫.০০</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-bold print-text-black text-gray-900 bg-gray-50 print:bg-white">
+                            <td class="border-gray-400 text-right px-2">সর্বমোট:</td>
+                            <td class="border-gray-400" colspan="7">GPA: ৪.৫০</td>
+                            <td class="border-gray-400" colspan="7">GPA: ৪.৬৭</td>
+                            <td class="border-gray-400" colspan="7">GPA: ৪.৮৩</td>
+                            <td class="border-gray-400" colspan="7">GPA: ৫.০০</td>
+                        </tr>
+                        <tr class="font-bold print-text-black text-gray-900 bg-gray-100 print:bg-white text-sm">
+                            <td class="border-gray-400 text-right px-2" colspan="22">চূড়ান্ত শিক্ষাবর্ষের সর্বমোট জিপিএ
+                                (Final Year GPA):</td>
+                            <td class="border-gray-400 font-extrabold text-blue-700 print-text-black text-center"
+                                colspan="7">৪.৭৫</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
 
-            <div class="mt-4 mb-16 text-sm font-bold print-text-black">
-                <p>ফলাফল: <span class="text-green-600 print-text-black uppercase">উত্তীর্ণ (Passed)</span></p>
+            <div class="mt-4 mb-16 text-xs font-bold print-text-black">
+                <p>ফлаফল (Result): <span class="text-green-600 print-text-black uppercase">উত্তীর্ণ (Passed)</span></p>
             </div>
 
             <div
-                class="flex flex-col sm:flex-row justify-between items-end pt-12 text-center text-xs gap-8 sm:gap-0 print-text-black">
+                class="flex flex-col sm:flex-row justify-between items-end pt-10 text-center text-[10px] gap-8 sm:gap-0 print-text-black">
                 <div>
-                    <div class="w-32 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
+                    <div class="w-28 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
                     <p class="font-medium">শ্রেণি শিক্ষকের স্বাক্ষর</p>
                 </div>
                 <div>
-                    <div class="w-32 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
+                    <div class="w-28 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
                     <p class="font-medium">পরীক্ষা কমিটির স্বাক্ষর</p>
                 </div>
                 <div>
-                    <div class="w-32 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
+                    <div class="w-28 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
                     <p class="font-medium">অভিভাবকের স্বাক্ষর</p>
                 </div>
                 <div>
-                    <div class="w-32 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
+                    <div class="w-28 border-b print-border-black border-gray-800 mb-1 mx-auto"></div>
                     <p class="font-medium">প্রধান শিক্ষকের স্বাক্ষর</p>
                 </div>
             </div>
@@ -375,16 +428,13 @@
             const roll = document.getElementById('roll-input').value;
             const pin = document.getElementById('pin-input').value;
 
-            // ডাটাবেস চেক করার ডামি লজিক (রোল ১০১ এবং পিন ১২৩৪ হলে রেজাল্ট দেখাবে)
+            // ডামি লগইন চেক (রোল ১০১ এবং পিন ১২৩৪)
             if (roll === '101' && pin === '1234') {
-                // সার্চ ফর্ম লুকিয়ে ফেলবে
                 document.getElementById('search-section').style.display = 'none';
 
-                // মার্কশিট দেখাবে
                 const marksheet = document.getElementById('marksheet-section');
                 marksheet.classList.remove('hidden');
 
-                // একটু নিচ থেকে অ্যানিমেশন হয়ে আসবে
                 marksheet.classList.add('translate-y-4', 'opacity-0');
                 setTimeout(() => {
                     marksheet.classList.remove('translate-y-4', 'opacity-0');
